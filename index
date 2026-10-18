@@ -1,0 +1,194 @@
+# A.1. Check if a value exists in a list
+
+mylist = [3, 7, 2, 9, 5, 1, 8, 4, 6]
+target = 5
+found = False
+
+for value in mylist:
+    if value == target:
+        found = True
+        break
+
+print("Value exists:", found)
+
+
+# A.2. Find the index of a value in a list
+
+def linear_search_index(mylist, target):
+    for index in range(len(mylist)):
+        if mylist[index] == target:
+            return index
+    return -1
+
+mylist = [3, 7, 2, 9, 5, 1, 8, 4, 6]
+print("Index:", linear_search_index(mylist, 9))
+
+
+# B.1. Binary Search
+
+def binary_search(mylist, target):
+    left = 0
+    right = len(mylist) - 1
+
+    while left <= right:
+        middle = (left + right) // 2
+
+        if mylist[middle] == target:
+            return middle
+        elif mylist[middle] < target:
+            left = middle + 1
+        else:
+            right = middle - 1
+
+    return -1
+
+mylist = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+print("Binary Search:", binary_search(mylist, 7))
+
+
+# C.1. Bubble Sort
+
+def bubble_sort(mylist):
+    n = len(mylist)
+
+    for i in range(n - 1):
+        for j in range(n - i - 1):
+            if mylist[j] > mylist[j + 1]:
+                mylist[j], mylist[j + 1] = mylist[j + 1], mylist[j]
+
+    return mylist
+
+mylist = [64, 34, 25, 12, 22, 11, 90]
+print("Bubble Sort:", bubble_sort(mylist.copy()))
+
+
+# C.2. Improved Bubble Sort
+
+def improved_bubble_sort(mylist):
+    n = len(mylist)
+
+    for i in range(n - 1):
+        swapped = False
+
+        for j in range(n - i - 1):
+            if mylist[j] > mylist[j + 1]:
+                mylist[j], mylist[j + 1] = mylist[j + 1], mylist[j]
+                swapped = True
+
+        if not swapped:
+            break
+
+    return mylist
+
+mylist = [64, 34, 25, 12, 22, 11, 90]
+print("Improved Bubble Sort:", improved_bubble_sort(mylist.copy()))
+
+
+# D.1. Selection Sort
+
+def selection_sort(mylist):
+    n = len(mylist)
+
+    for i in range(n - 1):
+        minimum = i
+
+        for j in range(i + 1, n):
+            if mylist[j] < mylist[minimum]:
+                minimum = j
+
+        mylist[i], mylist[minimum] = mylist[minimum], mylist[i]
+
+    return mylist
+
+mylist = [64, 25, 12, 22, 11]
+print("Selection Sort:", selection_sort(mylist.copy()))
+
+
+# D.2. Improved Selection Sort
+
+def improved_selection_sort(mylist):
+    n = len(mylist)
+
+    for i in range(n // 2):
+        minimum = i
+        maximum = i
+
+        for j in range(i + 1, n - i):
+            if mylist[j] < mylist[minimum]:
+                minimum = j
+            if mylist[j] > mylist[maximum]:
+                maximum = j
+
+        mylist[i], mylist[minimum] = mylist[minimum], mylist[i]
+
+        if maximum == i:
+            maximum = minimum
+
+        mylist[n - i - 1], mylist[maximum] = mylist[maximum], mylist[n - i - 1]
+
+    return mylist
+
+mylist = [64, 25, 12, 22, 11, 90, 3]
+print("Improved Selection Sort:", improved_selection_sort(mylist.copy()))
+
+
+# E.1. Insertion Sort
+
+def insertion_sort(mylist):
+    for i in range(1, len(mylist)):
+        key = mylist[i]
+        j = i - 1
+
+        while j >= 0 and mylist[j] > key:
+            mylist[j + 1] = mylist[j]
+            j -= 1
+
+        mylist[j + 1] = key
+
+    return mylist
+
+mylist = [12, 11, 13, 5, 6]
+print("Insertion Sort:", insertion_sort(mylist.copy()))
+
+
+# E.2. Improved Insertion Sort
+
+def improved_insertion_sort(mylist):
+    for i in range(1, len(mylist)):
+        key = mylist[i]
+
+        if key >= mylist[i - 1]:
+            continue
+
+        left = 0
+        right = i
+
+        while left < right:
+            middle = (left + right) // 2
+
+            if mylist[middle] <= key:
+                left = middle + 1
+            else:
+                right = middle
+
+        j = i
+
+        while j > left:
+            mylist[j] = mylist[j - 1]
+            j -= 1
+
+        mylist[left] = key
+
+    return mylist
+
+mylist = [12, 11, 13, 5, 6, 2, 20]
+print("Improved Insertion Sort:", improved_insertion_sort(mylist.copy()))
+
+
+# F.1. Quick Sort
+
+def quick_sort(mylist):
+    if len(mylist) <= 1:
+        return mylist
+
+    pivot = mylist
